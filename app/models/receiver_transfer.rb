@@ -1,0 +1,4 @@
+class ReceiverTransfer < ActiveRecord::Base
+    belongs_to :user
+    belongs_to :transfer
+end

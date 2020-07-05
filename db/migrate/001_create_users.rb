@@ -5,6 +5,8 @@ class CreateUsers < ActiveRecord::Migration[5.2]
             t.string :display_name
             t.decimal :balance, default: 0
             t.string :password_digest
+            t.references :receiver_transfer
+            t.references :sender_transfer
 
             t.boolean :admin, default: :false
       

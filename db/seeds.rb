@@ -19,3 +19,7 @@ User.create(username: "KajusSellers", display_name: "Kajus Sellers", password: "
 User.create(username: "MaisieFitzgerald", display_name: "Maisie Fitzgerald", password: "test", password_confirm: "test")
 User.create(username: "MahekTyler", display_name: "Mahek Tyler", password: "test", password_confirm: "test")
 
+Transfer.create(amount: 10, note: "Lunch", transfer_type: "request", status: "pending")
+ReceiverTransfer.create(user_id: 2, transfer_id: Transfer.last.id)
+SenderTransfer.create(user_id: 1, transfer_id: Transfer.last.id)
+
