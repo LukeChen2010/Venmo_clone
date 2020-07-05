@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 4) do
   create_table "transfers", force: :cascade do |t|
     t.decimal "amount"
     t.string "note"
-    t.string "transfer_type"
     t.string "status"
     t.integer "receiver_id"
     t.integer "sender_id"

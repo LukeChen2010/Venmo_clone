@@ -1,10 +1,12 @@
-<% @user.sending_transfers.each do |x|%>
-    <% if x.status = "pending" %>
-        <li> <%= x.receiver.display_name %> requested payment of <%= number_to_currency(x.amount) %> for <%= x.note %> on <%= x.created_at.strftime("%B %d") %> </li>
-    <% else %>
-    <% end %>
+<% if @user.id == current_user.id %>
+<% else %>
+    <h3> Viewing activity of <%= @user.display_name %> </h3>
 <% end %>
 
-<% if @user.id == current_user.id %>
-    <p> transaction </p>
+<% @user.sending_transfers.each do |x|%>
+    <% if x.status == "pending" %>
+        <li> <%= x.receiver.display_name %> requested payment of <%= number_to_currency(x.amount) %> for <%= x.note %> on <%= x.created_at.strftime("%B %d") %> </li>
+    <% else %>
+        <li> Sent payment to <%= x.receiver.display_name %> of <%= number_to_currency(x.amount) %> for <%= x.note %> on <%= x.updated_at.strftime("%B %d") %> </li>
+    <% end %>
 <% end %>
