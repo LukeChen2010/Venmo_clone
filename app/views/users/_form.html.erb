@@ -1,0 +1,45 @@
+<br>
+<br>
+<br>
+<%= form_for @user do |f| %>
+
+    <div class = "input_label">
+        <%= f.label "Username:" %>
+     </div>
+    
+    <%= f.text_field :username, required: true %>
+
+    <br><br>
+
+    <div class = "input_label">
+        <%= f.label "Display name:" %>
+    </div>
+
+    <%= f.text_field :display_name, required: true %>
+    
+    <br><br>
+
+    <div class = "input_label">
+        <%= f.label "Password:" %>
+    </div>
+
+    <%= f.text_field :password, :type => "password", required: true %>
+    
+    <br><br>
+
+    <div class = "input_label">
+        <%= f.label "Confirm password:" %>
+    </div>
+
+    <%= f.text_field :password_confirm, :type => "password", required: true %>
+    
+    <br><br>
+
+    <%= f.submit "Create", :class => "button" %>
+<% end %>
+
+<% if flash[:message] %>
+  <div class="center alert">
+    <p><%= flash[:message] %></p>
+  </div>
+<% end %>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VenmoKnockoff</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= image_tag("fakemo.png") %>
+  </head>
+
+  <body>
+    <br>
+    <div class="header" role="navigation">
+
+        <a href="<%= root_url %>"/>Home</a>
+
+        <% if current_user%>
+          <a href = "/logout"> Log Out </a>
+        <% else %>
+          <a href = "<%= new_user_path %>"/> Sign Up </a>
+          <a href = "<%= signin_path %>"/> Login </a>
+        <% end %>
+
+        <% if current_user %>
+          <h1>Hello, <%= current_user.display_name %>! </h1>
+        <% end %>
+
+        </div>
+
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+          </ul>
+    </div>
+
+    <!-- content -->
+    <div class="container"  role="main">
+      <%= yield %>
+    </div>
+    
+  </body>
+</html>

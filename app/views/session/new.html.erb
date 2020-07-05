@@ -1,0 +1,29 @@
+<br>
+<br>
+<br>
+<%= form_tag('/signin', method: :post) do %>
+
+    <div class = "input_label">
+        <label> Username: </label>
+     </div>
+    
+    <%= text_field_tag :'user[username]' %>
+
+    <br><br>
+
+    <div class = "input_label">
+         <label> Password: </label>
+    </div>
+
+    <%= password_field_tag :'user[password]' %>
+    
+    <br><br>
+
+    <%= submit_tag "Create", :class => "button" %>
+<% end %>
+
+<% if flash[:message] %>
+  <div class="center alert">
+    <p><%= flash[:message] %></p>
+  </div>
+<% end %>
