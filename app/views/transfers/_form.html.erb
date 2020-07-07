@@ -1,6 +1,7 @@
 <%= form_for @transfer do |f| %>
     <% if action_name == "send_payment" #If the current user is sending payment %>
 
+    <%= f.hidden_field :status, value: "completed" %>
     <%= f.hidden_field :sender_id, value: @sender.id %>
 
         <% if @receiver #If the nested route was used %> 
@@ -15,11 +16,12 @@
 
     <% elsif action_name == "request_payment" #If the current user is requesting payment %>
 
+    <%= f.hidden_field :status, value: "pending" %>
     <%= f.hidden_field :receiver_id, value: @receiver.id %>
 
         <% if @sender #If the nested route was used %>
             <%= f.hidden_field :sender_id, value: @sender.id %>
-            <p> Requesting payment from to <%= @sender.display_name %> </p>
+            <p> Requesting payment from <%= @sender.display_name %> </p>
         <% else %>
             <div class = "input_label">
                 <%= f.label "Request payment from: " %>
