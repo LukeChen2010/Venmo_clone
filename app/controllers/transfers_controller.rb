@@ -28,6 +28,7 @@ class TransfersController < ApplicationController
         end
     end
 
-    def new
+    def create
+        
     end
 end

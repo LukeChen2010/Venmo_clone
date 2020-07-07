@@ -1,26 +1,35 @@
 <%= form_for @transfer do |f| %>
-    <% if action_name == "send_payment" %>
+    <% if action_name == "send_payment" #If the current user is sending payment %>
 
-        <% if @receiver %>
+    <%= f.hidden_field :sender_id, value: @sender.id %>
+
+        <% if @receiver #If the nested route was used %> 
+            <%= f.hidden_field :receiver_id, value: @receiver.id %>
             <p> Sending payment to <%= @receiver.display_name %> </p>
         <% else %>
             <div class = "input_label">
                 <%= f.label "Send payment to: " %>
             </div>
-            <%= f.collection_select :receiver, User.all.where.not(id: current_user.id), :id, :display_name %>
+            <%= f.collection_select :receiver_id, User.all.where.not(id: current_user.id), :id, :display_name %>
         <% end %>
 
-    <% elsif action_name == "request_payment" %>
+    <% elsif action_name == "request_payment" #If the current user is requesting payment %>
 
-        <% if @sender %>
+    <%= f.hidden_field :receiver_id, value: @receiver.id %>
+
+        <% if @sender #If the nested route was used %>
+            <%= f.hidden_field :sender_id, value: @sender.id %>
             <p> Requesting payment from to <%= @sender.display_name %> </p>
         <% else %>
             <div class = "input_label">
                 <%= f.label "Request payment from: " %>
             </div>
-            <%= f.collection_select :sender, User.all.where.not(id: current_user.id), :id, :display_name %>
+            <%= f.collection_select :sender_id, User.all.where.not(id: current_user.id), :id, :display_name %>
         <% end %>
 
     <% end %>
+
+    <%= f.submit %>
+
 <% end %>
 
