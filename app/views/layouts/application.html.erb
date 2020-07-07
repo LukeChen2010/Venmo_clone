@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>VenmoKnockoff</title>
+    <title>FakeMo </title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <%= image_tag("fakemo.png") %>
+    <%= image_tag("fakemo1.png") %>
+    <h2> The Ultra Awesome Peer-to-Peer Payment System! </h2>
   </head>
 
   <body>
@@ -18,9 +19,18 @@
         <a href="<%= root_url %>"/>Home</a>
 
         <% if current_user%>
+          |
+          <%= link_to "My Activity", user_path(current_user) %>
+          |
+          <%= link_to "Send Payment", '/send_payment' %>
+          |
+          <%= link_to "Request Payment", '/request_payment' %>
+          |
           <a href = "/logout"> Log Out </a>
         <% else %>
+          |
           <a href = "<%= new_user_path %>"/> Sign Up </a>
+          |
           <a href = "<%= signin_path %>"/> Login </a>
         <% end %>
 

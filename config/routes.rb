@@ -6,4 +6,13 @@ Rails.application.routes.draw do
   get '/logout', to: 'session#delete'
 
   resources :users
+  resources :transfers
+
+  get '/request_payment', to: 'transfers#request_payment'
+  get '/send_payment', to: 'transfers#send_payment'
+
+  resources :users do
+    get '/request_payment', to: 'transfers#request_payment'
+    get '/send_payment', to: 'transfers#send_payment'
+  end
 end

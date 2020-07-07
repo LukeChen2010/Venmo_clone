@@ -1,12 +1,25 @@
 <% if @user.id == current_user.id %>
 <% else %>
     <h3> Viewing activity of <%= @user.display_name %> </h3>
+    <%= link_to "Request payment from #{@user.display_name}", "/users/#{@user.id}/request_payment" %>
+    |  
+    <%= link_to "Send payment to #{@user.display_name}", "/users/#{@user.id}/send_payment" %>   
+    <br>
+<br>
 <% end %>
 
-<% @user.sending_transfers.each do |x|%>
-    <% if x.status == "pending" %>
-        <li> <%= x.receiver.display_name %> requested payment of <%= number_to_currency(x.amount) %> for <%= x.note %> on <%= x.created_at.strftime("%B %d") %> </li>
+<% @user.transfers.each do |x|%>
+    <% if x.sender.id == @user.id %>
+        <% if x.status == "pending" %>
+            <li> <%= link_to x.receiver.display_name, user_path(x.receiver) %> requested payment <%= "of #{number_to_currency(x.amount)} "  if @user.id == current_user.id %> for <%= x.note %> on <%= x.created_at.strftime("%B %d") %> </li>
+        <% else %>
+            <li> Sent <%= number_to_currency(x.amount) if @user.id == current_user.id %> to <%= link_to x.receiver.display_name, user_path(x.receiver) %> for <%= x.note %> on <%= x.updated_at.strftime("%B %d") %> </li>
+        <% end %>
     <% else %>
-        <li> Sent payment to <%= x.receiver.display_name %> of <%= number_to_currency(x.amount) %> for <%= x.note %> on <%= x.updated_at.strftime("%B %d") %> </li>
+        <% if x.status == "pending" %>
+            <li> Requested payment <%= "of #{number_to_currency(x.amount)} "  if @user.id == current_user.id %> from <%= link_to x.sender.display_name, user_path(x.sender) %> for <%= x.note %> on <%= x.created_at.strftime("%B %d") %> </li>
+        <% else %>
+            <li> <%= link_to x.sender.display_name, user_path(x.sender) %> sent <%= number_to_currency(x.amount) if @user.id == current_user.id %> for <%= x.note %> on <%= x.updated_at.strftime("%B %d") %> </li>
+        <% end %>
     <% end %>
 <% end %>

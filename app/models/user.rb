@@ -1,8 +1,20 @@
 class User < ActiveRecord::Base
     has_secure_password
-    has_many :receiver_transfers
-    has_many :sender_transfers
-    has_many :receiving_transfers, through: :receiver_transfers, source: :transfer
-    has_many :sending_transfers, through: :sender_transfers, source: :transfer
+
+    has_many :receiving_transfers, foreign_key: "receiver_id", class_name: "Transfer"
+    has_many :users_received_from, through: :receiving_transfers, source: :sender
+
+    has_many :sending_transfers, foreign_key: "sender_id", class_name: "Transfer"
+    has_many :users_sent_to, through: :sending_transfers, source: :receiver
+
     attr_accessor :entered_password, :password_confirm
+
+    def transfers
+        return (self.receiving_transfers + self.sending_transfers).sort_by {|x| x.updated_at}.reverse
+    end
+
+    def interacted_users_transfers
+        users = (self.users_received_from + self.users_sent_to).to_a
+        return (Transfer.where(sender: users).where.not(receiver: self) + Transfer.where(receiver: users).where.not(sender: self)).uniq.sort_by {|x| x.updated_at}.reverse
+    end
 end

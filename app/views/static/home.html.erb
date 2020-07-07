@@ -1,0 +1,10 @@
+<% if @user %>
+    <h3> Friends' activity </h3>
+    <% @user.interacted_users_transfers.each do |x|%>
+        <% if x.status == "pending" %>
+            <li> <%= link_to x.receiver.display_name, user_path(x.receiver) %> requested payment from <%= link_to x.sender.display_name, user_path(x.sender) %> for <%= x.note%> on <%= x.created_at.strftime("%B %d") %> </li>
+        <% else %>
+            <li> <%= link_to x.sender.display_name, user_path(x.sender) %> sent payment to <%= link_to x.receiver.display_name, user_path(x.receiver) %> for <%= x.note%> on <%= x.created_at.strftime("%B %d") %> </li>
+        <% end %>
+    <% end %>
+<% end %>
