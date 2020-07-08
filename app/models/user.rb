@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
     has_secure_password
 
     has_many :receiving_transfers, foreign_key: "receiver_id", class_name: "Transfer"
@@ -7,7 +7,18 @@ class User < ActiveRecord::Base
     has_many :sending_transfers, foreign_key: "sender_id", class_name: "Transfer"
     has_many :users_sent_to, through: :sending_transfers, source: :receiver
 
-    attr_accessor :entered_password, :password_confirm
+    validates :username, presence: true
+    validates :display_name, presence: true
+    validates :password, presence: true
+    
+    validates :username, length: { minimum: 5 }
+    validates :display_name, length: { minimum: 5 }
+    validates :password, length: { minimum: 8 }
+
+    validates :password_confirmation, presence: true
+    validates :password, confirmation: true
+
+    validates :balance, numericality: { greater_than_or_equal_to: 0 }
 
     def transfers
         return (self.receiving_transfers + self.sending_transfers).sort_by {|x| x.updated_at}.reverse

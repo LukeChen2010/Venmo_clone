@@ -8,21 +8,15 @@ class UsersController < ApplicationController
         username = params[:user][:username]
         display_name = params[:user][:display_name]
         password = params[:user][:password]
-        password_confirm = params[:user][:password_confirm]
+        password_confirmation = params[:user][:password_confirmation]
 
-        if username == "" ||  display_name == "" ||  password == "" ||  password_confirm == ""
-            message = "Please fill in all required fields!"
-            redirect_to "/users/new", flash: { message: message }
-        elsif User.find_by(username: username)
-            message = "Username #{username} has already been taken!"
-            redirect_to "/users/new", flash: { message: message }
-        elsif password != password_confirm
-            message = "Passwords do not match!"
-            redirect_to "/users/new", flash: { message: message }
-        else
-            @user = User.create(user_params)
+        @user = User.create(username: username, display_name: display_name, password: password, password_confirmation: password_confirmation)
+
+        if @user.valid?
             session[:user_id] = @user.id
-            redirect_to user_path(@user)                  
+            redirect_to user_path(@user)
+        else
+            render 'users/new'          
         end
     end
 

@@ -31,15 +31,18 @@
         <%= f.label "Confirm password:" %>
     </div>
 
-    <%= f.text_field :password_confirm, :type => "password", required: true %>
+    <%= f.text_field :password_confirmation, :type => "password", required: true %>
     
     <br><br>
 
     <%= f.submit "Create", :class => "button" %>
+
 <% end %>
 
-<% if flash[:message] %>
-  <div class="center alert">
-    <p><%= flash[:message] %></p>
-  </div>
+<% if @user.errors.any? %>
+    <div class="error_explanation">
+        <% @user.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+        <% end %>
+    </div>
 <% end %>

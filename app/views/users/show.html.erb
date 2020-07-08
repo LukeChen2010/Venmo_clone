@@ -1,5 +1,4 @@
-<% if @user.id == current_user.id %>
-<% else %>
+<% if @user.id != current_user.id %>
     <h3> Viewing activity of <%= @user.display_name %> </h3>
     <%= link_to "Request payment from #{@user.display_name}", "/users/#{@user.id}/request_payment" %>
     |  
