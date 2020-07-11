@@ -11,12 +11,14 @@ class UsersController < ApplicationController
         password = params[:user][:password]
         password_confirmation = params[:user][:password_confirmation]
 
-        @user = User.create(username: username, display_name: display_name, password: password, password_confirmation: password_confirmation)
+        @user = User.create(user_params)
 
         if @user.valid?
             session[:user_id] = @user.id
             redirect_to user_path(@user)
         else
+            @user.password = ""
+            @user.password_confirmation = ""
             render 'new'          
         end
     end
@@ -31,16 +33,11 @@ class UsersController < ApplicationController
 
     def update
         @user = User.find_by(id: params[:id])
-        display_name = params[:user][:display_name]
         add_funds = params[:user][:add_funds].to_f.round(2)
 
-        @user.update(display_name: display_name)
-
-        if add_funds > 0
-            @user.update(balance: @user.balance + add_funds)
-        end
+        @user.update_attribute(:balance, @user.balance + add_funds) if add_funds > 0
         
-        redirect_to user_path(@user)
+        redirect_to edit_user_path(@user)
     end
 
     private

@@ -29,6 +29,21 @@ class TransfersController < ApplicationController
     end
 
     def create
-        
+        @transfer = Transfer.create(transfer_params)
+
+        puts @transfer.sender == current_user
+        puts @transfer.amount > current_user.balance
+
+        if @transfer.sender == current_user && @transfer.amount > current_user.balance
+            @transfer.destroy
+            redirect_to edit_user_path(current_user)
+        else
+            current_user.update_attribute(:balance, current_user.balance - @transfer.amount)
+            redirect_to user_path(current_user)
+        end
+    end
+
+    def transfer_params
+        params.require(:transfer).permit(:receiver_id, :sender_id, :amount, :note, :status)
     end
 end

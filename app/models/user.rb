@@ -8,6 +8,7 @@ class User < ApplicationRecord
     has_many :users_sent_to, through: :sending_transfers, source: :receiver
 
     validates :username, presence: true
+    validates :username, uniqueness: true
     validates :display_name, presence: true
     validates :password, presence: true
     
@@ -15,8 +16,8 @@ class User < ApplicationRecord
     validates :display_name, length: { minimum: 5 }
     validates :password, length: { minimum: 8 }
 
-    validates :password_confirmation, presence: true
-    validates :password, confirmation: true
+    validates :password_confirmation, presence: true, on: :create
+    validates :password, confirmation: true, on: :create
 
     validates :balance, numericality: { greater_than_or_equal_to: 0 }
 

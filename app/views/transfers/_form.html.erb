@@ -57,3 +57,10 @@
 
 <% end %>
 
+<% if @transfer.errors.any? %>
+    <div class="error_explanation">
+        <% @transfer.errors.full_messages.each do |msg| %>
+        <p><%= msg %></p>
+        <% end %>
+    </div>
+<% end %>
