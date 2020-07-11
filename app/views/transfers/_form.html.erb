@@ -35,7 +35,25 @@
 
     <% end %>
 
-    <%= f.submit %>
+    <div class = "input_label">
+        <%= f.label "Enter amount:" %>
+    </div>
+
+     <%= f.number_field :amount, required: :true, step: 0.01 %>
+
+     <br>
+     <br>
+
+     <div class = "input_label">
+        <%= f.label "Add a note:" %>
+    </div>
+
+    <%= f.text_area :note, required: :true %>
+
+    <br>
+    <br>
+
+    <%= f.submit "Send", :class => "button" %>
 
 <% end %>
 

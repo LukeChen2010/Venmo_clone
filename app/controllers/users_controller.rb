@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
     def new
+        redirect_to root_url if current_user
         @user = User.new
     end
 
@@ -16,12 +17,30 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect_to user_path(@user)
         else
-            render 'users/new'          
+            render 'new'          
         end
     end
 
     def show
         @user = User.find_by(id: params[:id])
+    end
+
+    def edit
+        @user = User.find_by(id: params[:id])
+    end
+
+    def update
+        @user = User.find_by(id: params[:id])
+        display_name = params[:user][:display_name]
+        add_funds = params[:user][:add_funds].to_f.round(2)
+
+        @user.update(display_name: display_name)
+
+        if add_funds > 0
+            @user.update(balance: @user.balance + add_funds)
+        end
+        
+        redirect_to user_path(@user)
     end
 
     private

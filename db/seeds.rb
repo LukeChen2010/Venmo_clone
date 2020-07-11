@@ -9,16 +9,16 @@
 User.delete_all
 Transfer.delete_all
 
-User.create(username: "AkramDriscoll", display_name: "Akram Driscoll", password: "test", password_confirm: "test")
-User.create(username: "EliseCallahan", display_name: "Elise Callahan", password: "test", password_confirm: "test")
-User.create(username: "HectorTravis", display_name: "Hector Travis", password: "test", password_confirm: "test")
-User.create(username: "AmiCharlton", display_name: "Ami Charlton", password: "test", password_confirm: "test")
-User.create(username: "EmaStout", display_name: "Ema Stout", password: "test", password_confirm: "test")
-User.create(username: "IndianaZimmerman", display_name: "Indiana Zimmerman", password: "test", password_confirm: "test")
-User.create(username: "LillyAnnOsborne", display_name: "Lilly-Ann Osborne", password: "test", password_confirm: "test")
-User.create(username: "KajusSellers", display_name: "Kajus Sellers", password: "test", password_confirm: "test")
-User.create(username: "MaisieFitzgerald", display_name: "Maisie Fitzgerald", password: "test", password_confirm: "test")
-User.create(username: "MahekTyler", display_name: "Mahek Tyler", password: "test", password_confirm: "test")
+User.create(username: "AkramDriscoll", display_name: "Akram Driscoll", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", balance: 100)
+User.create(username: "EliseCallahan", display_name: "Elise Callahan", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", balance: 100)
+User.create(username: "HectorTravis", display_name: "Hector Travis", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", balance: 100)
+User.create(username: "AmiCharlton", display_name: "Ami Charlton", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", balance: 100)
+User.create(username: "EmaStout", display_name: "Ema Stout", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", balance: 100)
+User.create(username: "IndianaZimmerman", display_name: "Indiana Zimmerman", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", balance: 100)
+User.create(username: "LillyAnnOsborne", display_name: "Lilly-Ann Osborne", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", balance: 100)
+User.create(username: "KajusSellers", display_name: "Kajus Sellers", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", balance: 100)
+User.create(username: "MaisieFitzgerald", display_name: "Maisie Fitzgerald", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", balance: 100)
+User.create(username: "MahekTyler", display_name: "Mahek Tyler", password: "aaaaaaaa", password_confirmation: "aaaaaaaa", balance: 100)
 
 Transfer.create(receiver: User.find_by(id: 9),sender: User.find_by(id: 10),amount: 10, note: "transfer1", status: "completed")
 Transfer.create(receiver: User.find_by(id: 9),sender: User.find_by(id: 7),amount: 10, note: "transfer2", status: "completed")
