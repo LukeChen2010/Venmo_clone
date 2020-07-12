@@ -1,0 +1,53 @@
+<h3> Viewing Transaction </h3>
+
+<table style="width:auto" class="center">
+
+    <colgroup>
+        <col span="2" style="width:auto" >
+    </colgroup>
+
+    <tr> 
+        <th>Sender:</th>
+        <td> <%= link_to @transfer.sender.display_name, user_path(@transfer.sender) %> </td> 
+    </tr>
+    
+    <tr> 
+        <th>Recipient:</th> 
+        <td> <%= link_to @transfer.receiver.display_name, user_path(@transfer.receiver) %> </td>
+    </tr>    
+
+    <tr> 
+        <th>Amount:</th> 
+        <td> <%= number_to_currency(@transfer.amount) %> </td>
+    </tr>
+    
+    <tr> 
+        <th>Status:</th> 
+        <td> <%= @transfer.status %> </td>
+    </tr>
+
+    <tr> 
+        <th>Date created:</th> 
+        <td> <%= @transfer.created_at.strftime("%B %d, %Y") %> </td>
+    </tr>
+
+    <tr> 
+        <th>Date completed:</th> 
+        <td> <%= @transfer.created_at.strftime("%B %d, %Y") unless @transfer.status == "pending" %> </td>
+    </tr>
+    
+    <tr> 
+        <th>Note:</th> 
+        <td> <%= @transfer.note %> </td>
+    </tr>
+
+</table>
+
+<% if @transfer.status == "pending" %>
+    <% if @transfer.sender == current_user %>
+        <%= link_to "Accept", "/transfer/#{@transfer.id}/accept", method: 'put' %>
+    <% else %>
+        <%= link_to "Withdraw", "/transfer/#{@transfer.id}/withdraw", method: 'put' %>
+    <% end %>
+<% end %>
+

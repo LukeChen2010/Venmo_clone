@@ -16,5 +16,7 @@ Rails.application.routes.draw do
     get '/send_payment', to: 'transfers#send_payment'
   end
 
+  put '/transfer/:id/accept', to: 'transfers#accept'
+  put '/transfer/:id/withdraw', to: 'transfers#withdraw'
   
 end

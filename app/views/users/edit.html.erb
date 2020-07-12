@@ -1,6 +1,12 @@
 <h2> Settings </h2>
 <h3> Your wallet: <%= number_to_currency(@user.balance) %> </h3>
 
+<% if flash[:message] %>
+    <div class="error_explanation">
+        <p><%= flash[:message] %></p>
+    </div>
+<% end %>
+
 <%= form_tag user_path(@user), method: "put" do %>
 
     <br>
@@ -16,12 +22,4 @@
 
     <%= submit_tag "Submit", :class => "button" %>
 
-<% end %>
-
-<% if @user.errors.any? %>
-    <div class="error_explanation">
-        <% @user.errors.full_messages.each do |msg| %>
-        <p><%= msg %></p>
-        <% end %>
-    </div>
 <% end %>
