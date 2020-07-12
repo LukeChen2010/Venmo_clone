@@ -43,6 +43,8 @@
 
 </table>
 
+<br>
+
 <% if @transfer.status == "pending" %>
     <% if @transfer.sender == current_user %>
         <%= link_to "Accept", "/transfer/#{@transfer.id}/accept", method: 'put' %>

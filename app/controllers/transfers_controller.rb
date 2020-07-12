@@ -31,14 +31,13 @@ class TransfersController < ApplicationController
     def create
         @transfer = Transfer.create(transfer_params)
 
-        if @transfer.sender == current_user 
-            if @transfer.amount > current_user.balance 
-                @transfer.destroy
-                redirect_to edit_user_path(current_user), flash: { message: "Insufficient balance!" }
-                return
-            end
-        else
+        if @transfer.sender == current_user && @transfer.amount > current_user.balance
+            @transfer.destroy
+            redirect_to edit_user_path(current_user), flash: { message: "Insufficient balance!" }
+            return
+        elsif @transfer.status == "completed"
             current_user.update_attribute(:balance, current_user.balance - @transfer.amount)
+            @transfer.receiver.update_attribute(:balance, @transfer.receiver.balance + @transfer.amount)
         end
 
         redirect_to user_path(current_user)
@@ -60,6 +59,7 @@ class TransfersController < ApplicationController
         else
             @transfer.update_attribute(:status, "completed")
             current_user.update_attribute(:balance, current_user.balance - @transfer.amount)
+            @transfer.receiver.update_attribute(:balance, @transfer.receiver.balance + @transfer.amount)
             redirect_to user_path(current_user)
         end
     end
