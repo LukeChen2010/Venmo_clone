@@ -9,6 +9,8 @@ class SessionController < ApplicationController
             @user = User.find_or_create_by(id: auth['uid']) do |u|
                 u.username = auth['info']['email']
                 u.display_name = auth['info']['name']
+                u.password = "fakepasswordlol"
+                u.password_confirmation = "fakepasswordlol"
             end
            
             session[:user_id] = @user.id
