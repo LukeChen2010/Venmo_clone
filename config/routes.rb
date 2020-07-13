@@ -18,5 +18,7 @@ Rails.application.routes.draw do
 
   put '/transfer/:id/accept', to: 'transfers#accept'
   put '/transfer/:id/withdraw', to: 'transfers#withdraw'
+
+  get '/auth/facebook/callback' => 'session#create'
   
 end
