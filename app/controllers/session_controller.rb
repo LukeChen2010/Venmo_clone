@@ -6,21 +6,18 @@ class SessionController < ApplicationController
 
     def create
         if request.env['PATH_INFO'] == '/auth/facebook/callback' #If user logs in with Facebook
+            fake_password = (0...8).map { (65 + rand(26)).chr }.join
+            puts fake_password
+
             @user = User.find_or_create_by(id: auth['uid']) do |u|
                 u.username = auth['info']['email']
                 u.display_name = auth['info']['name']
-                u.password = "fakepasswordlol"
-                u.password_confirmation = "fakepasswordlol"
+                u.password = fake_password
+                u.password_confirmation = fake_password
             end
            
             session[:user_id] = @user.id
-
-            puts @user.valid? #false
-
-            @user.errors.full_messages.each do |msg|
-                puts msg #fails all validations based around password
-            end
-        else #If user uses my login (works 100%)
+        else
             @user = User.find_by(username: params[:user][:username])
 
             if !@user 
