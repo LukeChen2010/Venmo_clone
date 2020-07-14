@@ -1,24 +1,15 @@
+<h3> Viewing profile of <%= @user.display_name %> </h3>
+
+<p> Member since <%= @user.created_at.strftime("%B %d, %Y")%> </p>
+
+<p> Last activity <%= @user.updated_at.strftime("%B %d, %Y")%> </p>
+
 <% if @user.id != current_user.id %>
-    <h3> Viewing activity of <%= @user.display_name %> </h3>
     <%= link_to "Request payment from #{@user.display_name}", "/users/#{@user.id}/request_payment" %>
     |  
     <%= link_to "Send payment to #{@user.display_name}", "/users/#{@user.id}/send_payment" %>   
     <br>
-<br>
+    |
 <% end %>
 
-<% @user.transfers.each do |x|%>
-    <% if x.sender.id == @user.id %>
-        <% if x.status == "pending" %>
-            <li> <%= link_to x.receiver.display_name, user_path(x.receiver) %> <%= link_to "requested payment", transfer_path(x) %> <%= "of #{number_to_currency(x.amount)} " if @user.id == current_user.id %> for <%= x.note %> on <%= x.created_at.strftime("%B %d") %> </li>
-        <% elsif x.status == "completed" %>
-            <li> <%= link_to "Sent", transfer_path(x) %> <%= number_to_currency(x.amount) if @user.id == current_user.id %> to <%= link_to x.receiver.display_name, user_path(x.receiver) %> for <%= x.note %> on <%= x.updated_at.strftime("%B %d") %> </li>
-        <% end %>
-    <% elsif x.receiver.id == @user.id %>
-        <% if x.status == "pending" %>
-            <li> <%= link_to "Requested payment", transfer_path(x) %> <%= "of #{number_to_currency(x.amount)} " if @user.id == current_user.id %> from <%= link_to x.sender.display_name, user_path(x.sender) %> for <%= x.note %> on <%= x.created_at.strftime("%B %d") %> </li>
-        <% elsif x.status == "completed" %>
-            <li> <%= link_to x.sender.display_name, user_path(x.sender) %> <%= link_to "sent", transfer_path(x) %> <%= number_to_currency(x.amount) if @user.id == current_user.id %> for <%= x.note %> on <%= x.updated_at.strftime("%B %d") %> </li>
-        <% end %>
-    <% end %>
-<% end %>
+<%= link_to "View activity of #{@user.display_name}", "/users/#{@user.id}/transfers" %> 

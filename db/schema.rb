@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer "uid"
     t.string "username"
     t.string "display_name"
     t.decimal "balance", default: "0.0"

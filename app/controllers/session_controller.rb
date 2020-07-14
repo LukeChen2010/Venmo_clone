@@ -9,7 +9,7 @@ class SessionController < ApplicationController
             fake_password = (0...8).map { (65 + rand(26)).chr }.join
             puts fake_password
 
-            @user = User.find_or_create_by(id: auth['uid']) do |u|
+            @user = User.find_or_create_by(uid: auth['uid']) do |u|
                 u.username = auth['info']['email']
                 u.display_name = auth['info']['name']
                 u.password = fake_password

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/send_payment', to: 'transfers#send_payment'
 
   resources :users do
+    get '/transfers', to: 'transfers#index'
     get '/request_payment', to: 'transfers#request_payment'
     get '/send_payment', to: 'transfers#send_payment'
   end

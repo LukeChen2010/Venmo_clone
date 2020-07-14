@@ -43,8 +43,8 @@ class TransfersController < ApplicationController
         redirect_to user_path(current_user)
     end
 
-    def transfer_params
-        params.require(:transfer).permit(:receiver_id, :sender_id, :amount, :note, :status)
+    def index
+        @user = User.find_by(id: params[:user_id])
     end
 
     def show
@@ -68,5 +68,11 @@ class TransfersController < ApplicationController
         @transfer = Transfer.find_by(id: params[:id])
         @transfer.update_attribute(:status, "withdrawn")
         redirect_to user_path(current_user)
+    end
+
+    private
+
+    def transfer_params
+        params.require(:transfer).permit(:receiver_id, :sender_id, :amount, :note, :status)
     end
 end

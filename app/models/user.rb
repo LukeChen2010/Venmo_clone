@@ -16,9 +16,6 @@ class User < ApplicationRecord
     validates :display_name, length: { minimum: 5 }
     validates :password, length: { minimum: 8 }
 
-    validates :password_confirmation, presence: true, on: :create
-    validates :password, confirmation: true, on: :create
-
     validates :balance, numericality: { greater_than_or_equal_to: 0 }
 
     def transfers

@@ -18,7 +18,7 @@
 
     <tr> 
         <th>Amount:</th> 
-        <td> <%= number_to_currency(@transfer.amount) %> </td>
+        <td> <%= number_to_currency(@transfer.amount) if @transfer.receiver == current_user || @transfer.sender == current_user %> </td>
     </tr>
     
     <tr> 
