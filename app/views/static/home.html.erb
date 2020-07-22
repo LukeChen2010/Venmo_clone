@@ -1,6 +1,11 @@
-<% if @user %>
+<% if current_user %>
     <h3> Friends' activity </h3>
-    <% @user.interacted_users_transfers.each do |x|%>
+    <%= link_to "Sort by ascending", root_url(sort_by: "ascending")%>
+    <%= link_to "Sort by descending", root_url(sort_by: "descending")%>
+
+    <br>
+    
+    <% @transfers.each do |x|%>
         <% if x.status == "pending" %>
             <li> <%= link_to x.receiver.display_name, user_path(x.receiver) %> requested payment from <%= link_to x.sender.display_name, user_path(x.sender) %> for <%= x.note%> on <%= x.created_at.strftime("%B %d") %> </li>
         <% else %>

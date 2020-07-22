@@ -24,7 +24,7 @@ class User < ApplicationRecord
 
     def interacted_users_transfers
         users = (self.users_received_from + self.users_sent_to).to_a
-        return (Transfer.where(sender: users).where.not(receiver: self) + Transfer.where(receiver: users).where.not(sender: self)).uniq.sort_by {|x| x.updated_at}.reverse
+        return Transfer.where(sender: users).where.not(receiver: self).merge(Transfer.where(receiver: users).where.not(sender: self)).distinct
     end
 end
 
